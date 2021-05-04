@@ -20,7 +20,7 @@ I prefer to use [Terraform](https://www.terraform.io/) to define all my AWS reso
 
 I already have a Cloudfront distribution set up with S3 bucket as origin. Inside S3 bucket I have a simple index.html page. If I run `curl` command now I can see the following response:
 ```sh
-$ curl -i d33vf9zl6um5ej.cloudfront.net
+$ curl -i m433vf9z12dm5ej.cloudfront.net
 HTTP/1.1 200 OK
 Content-Type: text/html
 Content-Length: 63
@@ -76,7 +76,7 @@ Finally, click Associate, select your distribution Viewer Response as an event t
 
 After using curl on your cloudfront distribution you should receive this:
 ```sh
-curl -i d33vf9zl6um5ej.cloudfront.net
+curl -i m433vf9z12dm5ej.cloudfront.net
 HTTP/1.1 200 OK
 Content-Type: text/html
 Content-Length: 63
