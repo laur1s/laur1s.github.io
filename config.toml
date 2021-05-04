@@ -1,0 +1,10 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Cloud Engineer Field Notes"
+theme = "anatole"
+[params]
+  title = "Cloud Engineer Field Notes"
+  author = "Laurynas Tumosa"
+  description = "Notes from a Devops Engineer work"
+  profilePicture = "images/profile.jpg"
+
