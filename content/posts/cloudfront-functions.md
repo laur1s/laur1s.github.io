@@ -1,6 +1,6 @@
 ---
 title: "Modifying AWS Cloudfront response headers with Cloudfront functions"
-date: 2021-05-04T121:40:56+03:00
+date: 021-05-04T21:51:56+03:00
 ---
 Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a [Content-Security-Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).
 
