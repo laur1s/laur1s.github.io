@@ -28,3 +28,6 @@ theme = "anatole"
   weight = 300
   identifier = "about"
   url = "/about/"
+
+[params.simpleAnalytics]
+enable = true
