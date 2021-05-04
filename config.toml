@@ -1,10 +1,10 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "Cloud Engineer Field Notes"
+title = "DevOps For Humans"
 theme = "anatole"
 [params]
-  title = "Cloud Engineer Field Notes"
+  title = "DevOps For Humans"
   author = "Laurynas Tumosa"
-  description = "Notes from a Devops Engineer work"
+  description = "Notes about Devops, Cloud, AWS, Terraform and other things from my work as a Devops engineer"
   profilePicture = "images/profile.jpg"
 

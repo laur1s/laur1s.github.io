@@ -11,7 +11,7 @@ As a devops engineer I work with various tools and technologies everyday. Some o
 - The notes should be easily searchable.
 - The notes should be indexed for easily finding what you need.
 
-These goals can be met by simply using almost any notes app. However, I've been guilty of trying many different ways to organize my notes (org-mode, Google keep, oneNote, etc). I think that creating a static webpage where I can write my notes in Markdown and publish to the web would be ideal as it will solve these problems.
+These goals can be met by simply using almost any notes app. However, I\'ve been guilty of trying many different ways to organize my notes (org-mode, Google keep, oneNote, etc). I think that creating a static webpage where I can write my notes in Markdown and publish to the web would be ideal as it will solve these problems.
 
 However, I first had an idea to create this kind of technical blog more than 3 years ago and I only started to write my first post now. Why is that?
 
@@ -25,8 +25,8 @@ Obstacles that prevented me from writing for so long were that there are so many
 
 ## Why start anyway
 
-I decided to create blog anyway simple because I want to have a webpage for my own reference that would help me to remember some things I've done and that I could have a reference in the future. However, personally I refer to technical bogs very often during my work and I think that some people might find some of the post useful if they run into similar problems in the future.
+I decided to create blog anyway simple because I want to have a webpage for my own reference that would help me to remember some things I\'ve done and that I could have a reference in the future. However, personally I refer to technical bogs very often during my work and I think that some people might find some of the post useful if they run into similar problems in the future.
 
-I chose to use Hugo for this blog because it allows me to write my posts in markdown which I'm familiar with and it was quite easy to setup.(I'm not entirely happy with the  theme but it will work for now, the content is more important)
+I chose to use Hugo for this blog because it allows me to write my posts in markdown which I\'m familiar with and it was quite easy to setup.(I\'m not entirely happy with the  theme but it will work for now, the content is more important)
 
 Thanks for reading and I hope that someone will find something useful in this blog :)
