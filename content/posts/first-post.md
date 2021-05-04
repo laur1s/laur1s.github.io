@@ -1,5 +1,5 @@
 ---
-title: "First Post or why starting a technical blog is hard"
+title: "First Post: why starting a technical blog is hard"
 date: 2021-04-19T14:39:38+03:00
 ---
 
