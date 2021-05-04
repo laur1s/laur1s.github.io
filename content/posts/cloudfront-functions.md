@@ -1,6 +1,6 @@
 ---
 title: "Modifying AWS Cloudfront response headers with Cloudfront functions"
-date: 021-05-04T21:51:56+03:00
+date: 2021-05-04T21:51:56+03:00
 ---
 Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a [Content-Security-Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).
 
@@ -10,7 +10,7 @@ I was quite surprised when this morning I heard about a new feature called Cloud
 
 ## Cloudfront Functions vs Lambda@Edge
 
-Cloudfront Functions are actually quite similar to Lambda@Edge. The main difference is that Cloudfront Functions run at Cloudfront Edge locations. Wile despite the word **Edge** in Lambda@Eddge it runs at specific AWS regions.  Lambda@Edge supports Node.js while Lambda@Edge allows running javascript(ECMAScript 5.1 so `let` and `const` keywords are not supported). I\'m a bit surprised on why AWS decided to use such old Javascript standard but maybe since the functions are supposed to be lightweight and short it\'s fine. Since Cloudfront functions run at Cloudfront edge locations and use more lightweight runtime it should be faster than Lambda@Edge. Cloudfront Functions also have some limitations like no network or file system access, limited execution time, etc. Adding a custom response headers doesn\'t require any of that so let\'s do that using a Cloudfront function.
+Cloudfront Functions are actually quite similar to Lambda@Edge. The main difference is that Cloudfront Functions run at Cloudfront Edge locations. Wile despite the word **Edge** in Lambda@Eddge it runs at specific AWS regions.  Lambda@Edge supports Node.js while Lambda@Edge allows running javascript(ECMAScript 5.1 so `let` and `const` keywords are not supported). I\'m a bit surprised on why AWS decided to use older Javascript standard. Maybe since the functions are supposed to be lightweight and short that's fine. Since Cloudfront functions run at Cloudfront edge locations and use more lightweight runtime it should be faster than Lambda@Edge. Cloudfront Functions also have some limitations like no network or file system access, limited execution time, etc. Adding a custom response headers doesn\'t require any of that so let\'s do that using a Cloudfront function.
 
 ## Adding custom security header using a Cloudfront Function
 

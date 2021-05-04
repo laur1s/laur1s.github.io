@@ -1,5 +1,5 @@
 ---
-title: "Modifying AWS Cloudfront response headers with Cloudfront functions"
+title: "OLD AWS Cloudfront response headers with Cloudfront functions"
 date: 2021-05-04T13:51:56+03:00
 draft: true
 ---
@@ -100,10 +100,10 @@ function handler(event) {
 }
 ```
 
- After clicking save, let\'s click Test.
+ After clicking save, let's click Test.
 
- Since this function modifies requests after they reach origin let\'s select Viewer response as event type. After clicking test we can see that content-security-policy header is successfully added as a response header.
-{{< figure src="/images/cf3.png" title="Cloudfront Functions Test" height="500px">}}
+ Since this function modifies requests after they reach origin let's select Viewer response as event type. After clicking test we can see that content-security-policy header is successfully added as a response header.
+{{< figure src="/images/cf3.png" title="Cloudfront Functions Test">}}
 
 Let\'s click publish to publish a new version of your function. Finally, click associate, select your distribution Viewer Response as an event type and click add association. After using curl on your cloudfront distribution you should receive this:
 ```sh
