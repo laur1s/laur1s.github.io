@@ -3,8 +3,6 @@ title: "First Post: why starting a technical blog is hard"
 date: 2021-04-19T14:39:38+03:00
 ---
 
-## Why start a technical blog?
-
 As a devops engineer I work with various tools and technologies everyday. Some of them I use everyday or almost everyday (AWS, Terraform, Git , Docker, etc. ) and some only rarely. If you need to use  use something you only used a month or two ago chances are you will have to spend some time getting familiar with the tool again. This is where notes come very useful. If you have some notes about what you figured out when using the tool last time it would be much easier to figure out and remember what you did last time. In other for these notes to be useful couple of conditions have to be met in my opinion:
 
 - There should be a single place for putting your notes.

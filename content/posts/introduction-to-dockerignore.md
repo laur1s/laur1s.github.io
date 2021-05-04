@@ -1,9 +1,7 @@
 ---
-title: "Multiple Docker Ignore Files in Repo"
+title: "Introduction to .dockerignore"
 date: 2021-04-20T09:45:17+03:00
 ---
-
-## What is a .dockerignore file
 
 .dockerignore can be used to specify the files and folders that will be excluded from the docker context(and therefore won\'t be added to your container image after using `ADD` or `COPY` commands) For more information about the .dockerignore please refer to the [docker documentation](https://docs.docker.com/engine/reference/builder/#dockerignore-file).
 
@@ -21,7 +19,7 @@ node_modules/
 npm-debug.log
 ```
 
-## What if I have multiple Dockerfiles in my repo and want to ignore different files
+## Distinct .dockerignore file for each Dockerfile
 
 It\'s quite common to have multiple Dockerfiles in one git repository e.g.: when working with microservices or perhaps you have both frontend and backend code in one repository. In that cases you might want to have separate .dockerignore files for these projects. The question you might have is how docker decides which .dockerignore file to use for each dockerfile. The answer is quite straightforward (However I couldn\'t find this documented anywhere): Docker looks for a .dockerignore that has the same prefix as the dockerfile name.
 
