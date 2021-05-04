@@ -1,6 +1,7 @@
 ---
 title: "Modifying AWS Cloudfront response headers with Cloudfront functions"
-date: 2021-05-04T121:40:56+03:00
+date: 2021-05-04T13:51:56+03:00
+draft: true
 ---
 Adding custom response headers to cloudfront is quite a common task. E.g.: Your website might need a [Content-Security-Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).
 
@@ -51,7 +52,44 @@ First  let\'s go to Cloudfront Console and create a new function:
 
 Let\'s give our function a name `add-scp-headers` and click Continue.
 
-Now let\'s replace the example code with this:
+Before writing our own code let\'s try to run the example code that is kindly provided by cloudfront team:
+
+```js
+function handler(event) {
+    // NOTE: This example function is for a viewer request event trigger.
+    // Choose viewer request for event trigger when you associate this function with a distribution.
+    var response = {
+        statusCode: 200,
+        statusDescription: 'OK',
+        headers: {
+            'cloudfront-functions': { value: 'generated-by-CloudFront-Functions' }
+        }
+    };
+    return response;
+}
+```
+
+Not sure why they chose to provide an example that completely rewrites the response instead of simply modifying headers(If by accident I applied this example to my production cloudfront it will start returning this custom response instead of content). Let\'s click save and publish to publish this function. Finally click associate, select your distribution and Viewer request as an Event Type:
+{{< figure src="/images/cf2.png" title="Cloudfront Function association" >}}
+
+Now when I try to use curl on my distribution instead of my `index.html` page I get this empty response with some cloudfront headers:
+```sh
+curl -i d33vf9zl6um5ej.cloudfront.net
+HTTP/1.1 200 OK
+Server: CloudFront
+Date: Tue, 04 May 2021 17:06:36 GMT
+Content-Length: 0
+Connection: keep-alive
+Cloudfront-Functions: generated-by-CloudFront-Functions
+X-Cache: FunctionGeneratedResponse from cloudfront
+Via: 1.1 bc362383b5c95fa821ce42f151e2a4aa.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: ARN54-C1
+X-Amz-Cf-Id: 0UrFohRsd3uEUcS3knuqJcTSUFhqugTs4DeR5Ros3jgR5HRZkDD19Q==
+```
+
+
+Let\'s remove this function association by clicking Remove association.
+Now let\'s finally modify our code to to modify the cloudfront response and include the CSP header:
 
 ```js
 function handler(event) {
@@ -62,19 +100,12 @@ function handler(event) {
 }
 ```
 
-It simply modifies the cloudfront response and adds the CSP header to the response.
-
- After clicking save, let\'s click on the Test tab.
+ After clicking save, let\'s click Test.
 
  Since this function modifies requests after they reach origin let\'s select Viewer response as event type. After clicking test we can see that content-security-policy header is successfully added as a response header.
-{{< figure src="/images/cf2.png" title="Cloudfront Function Test" height="500px">}}
+{{< figure src="/images/cf3.png" title="Cloudfront Functions Test" height="500px">}}
 
-Let\'s click publish to publish a new version of your function.
-
-Finally, click Associate, select your distribution Viewer Response as an event type and click add association.
-{{< figure src="/images/cf3.png" title="Cloudfront Function Association" >}}
-
-After using curl on your cloudfront distribution you should receive this:
+Let\'s click publish to publish a new version of your function. Finally, click associate, select your distribution Viewer Response as an event type and click add association. After using curl on your cloudfront distribution you should receive this:
 ```sh
 curl -i d33vf9zl6um5ej.cloudfront.net
 HTTP/1.1 200 OK
@@ -102,7 +133,7 @@ X-Amz-Cf-Id: 18gD7OMeCKCE-SieGM2ScxOSTgeBQaSXXYdvQ5L6VvmBXDb8j_s69w==
 
 ## Conclusion
 
-Cloudfront functions is a great tool if you need to do simple tasks like modifying response or request headers. It\'s more simple to use than Lambda@Edge and also provides simplified debugging, deployment, and monitoring options. I would like to be able to migrate all my lambda@edge code to Cloudfront Functions but as of now it\'s not supported by any infrastructure as a code tool. Personally, I think that having multiple ways to work with Cloudfront(Lambda@Edge and CF Functions) adds some complexity but CF functions looks like a great tool when you don\'t need full capabilities of Lambda and also provides a nicer developer experience.
+Cloudfront functions is a great tool if you need to do simple tasks like modifying response or request headers. It\'s more simple to use than Lambda@Edge and also provides simplified debugging, deployment, and monitoring options. I would like to be able to migrate all my lambda@edge code to Cloudfront Functions but as of now it\'s not supported by any infrastructure as a code tool.
 
 Update:
 
