@@ -29,4 +29,7 @@ I decided to create blog anyway simple because I want to have a webpage for my o
 
 I chose to use Hugo for this blog because it allows me to write my posts in markdown which I\'m familiar with and it was quite easy to setup.(I\'m not entirely happy with the  theme but it will work for now, the content is more important)
 
+## What to expect in this blog
+
+In this blog I will try to document working with various devops tools. A lot of other technical blogs assumes that reader is well informed about a specific topic. I will try to make posts in this blog suitable for everyone and explain concepts as simply as possible.
 Thanks for reading and I hope that someone will find something useful in this blog :)

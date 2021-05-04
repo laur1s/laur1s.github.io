@@ -5,6 +5,6 @@ theme = "anatole"
 [params]
   title = "DevOps For Humans"
   author = "Laurynas Tumosa"
-  description = "Notes about Devops, Cloud, AWS, Terraform and other things from my work as a Devops engineer"
+  description = "Notes about Devops, Cloud, AWS, Terraform and other things from my work as a Devops engineer."
   profilePicture = "images/profile.jpg"
 
