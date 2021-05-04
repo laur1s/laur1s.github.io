@@ -18,6 +18,7 @@ test/
 node_modules/
 npm-debug.log
 ```
+
 In this case even when I use `COPY . .`  in my Dockefile git, test, node_modules and other directories that I don\'t need in my docker image won\'t be added there resulting in a smaller image sizes.
 
 ## Distinct .dockerignore file for each Dockerfile
