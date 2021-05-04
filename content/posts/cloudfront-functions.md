@@ -2,15 +2,15 @@
 title: "Modifying AWS Cloudfront response headers with Cloudfront functions"
 date: 2021-05-04T121:40:56+03:00
 ---
-Adding custom response headers to cloudfront is quite a common task. E.g.: Your website might need a [Content-Security-Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).
+Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a [Content-Security-Policy header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy).
 
-Doing this task in Cloudfront was not easy. You needed to setup a Lambda@Edge function that intercepts either request or response requests and adds the required headers. It\'s not that difficult to setup Lambda@Edge but using Lambda functions to add a simple http header to a response feels like an overkill. Actually, I wrote about this in my tweet when Cloudfront team asked for feature suggestions:
+Doing this task in Cloudfront was not easy. You needed to setup a Lambda@Edge function that intercepts response requests and adds the required headers. It\'s not that difficult to setup Lambda@Edge but using Lambda functions to add a simple HTTP header to a response feels like an overkill. I even wrote about this when the Cloudfront team asked for suggestions:
 {{< tweet 1329134380183392256 >}}
-I was quite surprised when this morning I finally heard about new Feature called CloudFront Functions.
+I was quite surprised when this morning I heard about a new feature called CloudFront Functions. This feature is supposed to make tasks like adding a custom HTTP header simpler. Let\'s see how it works!
 
 ## Cloudfront Functions vs Lambda@Edge
 
-Cloudfront Functions are actually quite similar to Lambda@Edge. The main difference is that Cloudfront Functions run at Cloudfront Edge locations while despite having the word **Edge** in their name Lambda@Edge runs at specific AWS regions.  Lambda@Edge supports Node.js  while Lambda@Edge allows running javascript(ECMAScript 5.1 so `let` and `const` keywords are not supported). I\'m a bit surprised on why AWS decided to use such old Javascript standard but maybe since the functions are supposed to be lightweight and short it\'s OK. Honestly, it\'s not a solution I expected. I thought it could be possible to simply have a section in cloudfront console where you can specify the custom headers without needing to write any Javascript: Lambda or Cloudfront Function. Since Cloudfront functions run at Cloudfront edge locations and use more lightweight runtime it should be faster than Lambda@Edge. Cloudfront Functions also have some limitations like no network or file system access, limited execution time, etc. Adding a custom response headers doesn\'t require any of that so let\'s do that using a Cloudfront function.
+Cloudfront Functions are actually quite similar to Lambda@Edge. The main difference is that Cloudfront Functions run at Cloudfront Edge locations. Wile despite the word **Edge** in Lambda@Eddge it runs at specific AWS regions.  Lambda@Edge supports Node.js while Lambda@Edge allows running javascript(ECMAScript 5.1 so `let` and `const` keywords are not supported). I\'m a bit surprised on why AWS decided to use such old Javascript standard but maybe since the functions are supposed to be lightweight and short it\'s fine. Since Cloudfront functions run at Cloudfront edge locations and use more lightweight runtime it should be faster than Lambda@Edge. Cloudfront Functions also have some limitations like no network or file system access, limited execution time, etc. Adding a custom response headers doesn\'t require any of that so let\'s do that using a Cloudfront function.
 
 ## Adding custom security header using a Cloudfront Function
 
@@ -101,8 +101,9 @@ X-Amz-Cf-Id: 18gD7OMeCKCE-SieGM2ScxOSTgeBQaSXXYdvQ5L6VvmBXDb8j_s69w==
 ```
 
 ## Conclusion
+It\'s not a solution what I expected when I tweeted about custom security headers. I thought it could be possible to simply have a section in cloudfront console where you can specify the custom headers without needing to write any Javascript code.
 
-Cloudfront functions is a great tool if you need to do simple tasks like modifying response or request headers. It\'s more simple to use than Lambda@Edge and also provides simplified debugging, deployment, and monitoring options. I would like to be able to migrate all my lambda@edge code to Cloudfront Functions but as of now it\'s not supported by any infrastructure as a code tool. Personally, I think that having multiple ways to work with Cloudfront(Lambda@Edge and CF Functions) adds some complexity but CF functions looks like a great tool when you don\'t need full capabilities of Lambda and also provides a nicer developer experience.
+However, Cloudfront functions is still a more convenient tool than Lambda@Edge if you need to do simple tasks like modifying response or request headers. It\'s more simple to use and provides simplified debugging, deployment, and monitoring options. I would like to be able to migrate all my Lambda@Edge code to Cloudfront Functions but as of now it\'s not supported by any infrastructure as a code tool. Personally, I think that having multiple ways to work with Cloudfront(Lambda@Edge and CF Functions) adds some complexity but CF functions looks like a great tool when you don\'t need full capabilities of Lambda and also provides a nicer developer experience.
 
 Update:
 
