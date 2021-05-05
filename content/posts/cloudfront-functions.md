@@ -67,7 +67,7 @@ It simply modifies the cloudfront response and adds the CSP header to the respon
  After clicking save, let\'s click on the Test tab.
 
  Since this function modifies requests after they reach origin let\'s select Viewer response as event type. After clicking test we can see that content-security-policy header is successfully added as a response header.
-{{< figure src="/images/cf2.png" title="Cloudfront Function Test" height="500px">}}
+{{< figure src="/images/cf2.png" title="Cloudfront Function Test">}}
 
 Let\'s click publish to publish a new version of your function.
 
