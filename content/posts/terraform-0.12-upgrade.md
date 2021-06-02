@@ -65,7 +65,7 @@ Successfully configured the backend "s3"! Terraform will automatically
 use this backend unless the backend configuration changes.
 ```
 
-That's all for this short post. Hopefully, this will help for people that receive similar Terraform errors.
+That's all for this short post. This post showed that it's possible to directly upgrade terraform from `0.12` to `0.15` by replacing AWS Terraform provider with a new name. If you try this with your own code, don't forget to backup the state file so you can come back to it in case anything fails.
 
 On the other note, I really like that Terraform now includes a lock file to pin the exact versions of Terraform providers. Since a lot of Infrastructure as Code (IaC) doesn't need to be updated
 as frequently as new versions of Terraform itself perhaps something can be done to allow upgrading from Terraform version which is couple major versions behind of a newer release.
