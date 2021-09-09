@@ -1,0 +1,181 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>Replace Lambda@Edge With Cloudfront Functions | DevOps For Humans</title>
+<meta name=viewport content="width=device-width,minimum-scale=1">
+<meta name=description content="In my previous post I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.
+In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.
+Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward.">
+<meta name=generator content="Hugo 0.88.1">
+<meta name=ROBOTS content="NOINDEX, NOFOLLOW">
+<link href=/dist/css/app.4fc0b62e4b82c997bb0041217cd6b979.css rel=stylesheet>
+<meta property="og:title" content="Replace Lambda@Edge With Cloudfront Functions">
+<meta property="og:description" content="In my previous post I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.
+In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.
+Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://laur1s.github.io/posts/replace-lambda-at-ege-with-cloudfront-functions/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-09-09T16:53:11+03:00">
+<meta property="article:modified_time" content="2021-09-09T16:53:11+03:00"><meta property="og:site_name" content="DevOps For Humans">
+<meta itemprop=name content="Replace Lambda@Edge With Cloudfront Functions">
+<meta itemprop=description content="In my previous post I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.
+In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.
+Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward."><meta itemprop=datePublished content="2021-09-09T16:53:11+03:00">
+<meta itemprop=dateModified content="2021-09-09T16:53:11+03:00">
+<meta itemprop=wordCount content="500">
+<meta itemprop=keywords content><meta name=twitter:card content="summary">
+<meta name=twitter:title content="Replace Lambda@Edge With Cloudfront Functions">
+<meta name=twitter:description content="In my previous post I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.
+In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.
+Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward.">
+<script async defer src=https://scripts.simpleanalyticscdn.com/latest.js></script>
+<noscript><img src=https://queue.simpleanalyticscdn.com/noscript.gif alt referrerpolicy=no-referrer-when-downgrade></noscript>
+</head>
+<body class="ma0 avenir bg-near-white">
+<header>
+<div class=bg-black>
+<nav class="pv3 ph3 ph4-ns" role=navigation>
+<div class="flex-l justify-between items-center center">
+<a href=/ class="f3 fw2 hover-white no-underline white-90 dib">
+DevOps For Humans
+</a>
+<div class="flex-l items-center">
+<ul class="pl0 mr3">
+<li class="list f5 f4-ns fw4 dib pr3">
+<a class="hover-white no-underline white-90" href=/ title="Home page">
+Home
+</a>
+</li>
+<li class="list f5 f4-ns fw4 dib pr3">
+<a class="hover-white no-underline white-90" href=/posts/ title="Posts page">
+Posts
+</a>
+</li>
+<li class="list f5 f4-ns fw4 dib pr3">
+<a class="hover-white no-underline white-90" href=/about/ title="About page">
+About
+</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+</div>
+</header>
+<main class=pb7 role=main>
+<article class="flex-l flex-wrap justify-between mw8 center ph3">
+<header class="mt4 w-100">
+<aside class="instapaper_ignoref b helvetica tracked">
+POSTS
+</aside>
+<div id=sharing class=mt3>
+<a href="https://www.facebook.com/sharer.php?u=https://laur1s.github.io/posts/replace-lambda-at-ege-with-cloudfront-functions/" class="facebook no-underline" aria-label="share on Facebook"><svg height="32" style="enable-background:new 0 0 67 67" viewBox="0 0 67 67" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M28.765 50.32h6.744V33.998h4.499l.596-5.624h-5.095l.007-2.816c0-1.466.14-2.253 2.244-2.253h2.812V17.68h-4.5c-5.405.0-7.307 2.729-7.307 7.317v3.377h-3.369v5.625h3.369V50.32zM33 64C16.432 64 3 50.569 3 34S16.432 4 33 4s30 13.431 30 30S49.568 64 33 64z" style="fill-rule:evenodd;clip-rule:evenodd"/></svg>
+</a>
+<a href="https://twitter.com/share?url=https://laur1s.github.io/posts/replace-lambda-at-ege-with-cloudfront-functions/&text=Replace%20Lambda@Edge%20With%20Cloudfront%20Functions" class="twitter no-underline" aria-label="share on Twitter"><svg height="32" style="enable-background:new 0 0 67 67" viewBox="0 0 67 67" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167 22.283c-2.619.953-4.274 3.411-4.086 6.101l.063 1.038-1.048-.127c-3.813-.487-7.145-2.139-9.974-4.915l-1.383-1.377-.356 1.017c-.754 2.267-.272 4.661 1.299 6.271.838.89.649 1.017-.796.487-.503-.169-.943-.296-.985-.233-.146.149.356 2.076.754 2.839.545 1.06 1.655 2.097 2.871 2.712l1.027.487-1.215.021c-1.173.0-1.215.021-1.089.467.419 1.377 2.074 2.839 3.918 3.475l1.299.444-1.131.678c-1.676.976-3.646 1.526-5.616 1.568C19.775 43.256 19 43.341 19 43.405c0 .211 2.557 1.397 4.044 1.864 4.463 1.377 9.765.783 13.746-1.568 2.829-1.673 5.657-5 6.978-8.221.713-1.716 1.425-4.851 1.425-6.354.0-.975.063-1.102 1.236-2.267.692-.678 1.341-1.419 1.467-1.631.21-.403.188-.403-.88-.043-1.781.636-2.033.551-1.152-.402.649-.678 1.425-1.907 1.425-2.267.0-.063-.314.042-.671.233-.377.212-1.215.53-1.844.72l-1.131.361-1.027-.7c-.566-.381-1.361-.805-1.781-.932C39.766 21.902 38.131 21.944 37.167 22.283zM33 64C16.432 64 3 50.569 3 34S16.432 4 33 4s30 13.431 30 30S49.568 64 33 64z" style="fill-rule:evenodd;clip-rule:evenodd;fill:"/></svg>
+</a>
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https://laur1s.github.io/posts/replace-lambda-at-ege-with-cloudfront-functions/&title=Replace%20Lambda@Edge%20With%20Cloudfront%20Functions" class="linkedin no-underline" aria-label="share on LinkedIn"><svg height="32" style="enable-background:new 0 0 65 65" viewBox="0 0 65 65" width="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M50.837 48.137V36.425c0-6.275-3.35-9.195-7.816-9.195-3.604.0-5.219 1.983-6.119 3.374V27.71h-6.79c.09 1.917.0 20.427.0 20.427h6.79V36.729c0-.609.044-1.219.224-1.655.49-1.22 1.607-2.483 3.482-2.483 2.458.0 3.44 1.873 3.44 4.618v10.929H50.837zM22.959 24.922c2.367.0 3.842-1.57 3.842-3.531-.044-2.003-1.475-3.528-3.797-3.528s-3.841 1.524-3.841 3.528c0 1.961 1.474 3.531 3.753 3.531H22.959zM34 64C17.432 64 4 50.568 4 34 4 17.431 17.432 4 34 4s30 13.431 30 30c0 16.568-13.432 30-30 30zM26.354 48.137V27.71h-6.789v20.427h6.789z" style="fill-rule:evenodd;clip-rule:evenodd;fill:"/></svg>
+</a>
+</div>
+<h1 class="f1 athelas mt3 mb1">Replace Lambda@Edge With Cloudfront Functions</h1>
+<time class="f6 mv4 dib tracked" datetime=2021-09-09T16:53:11+03:00>September 9, 2021</time>
+</header>
+<div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>In my previous <a href=https://laur1s.github.io/posts/cloudfront-functions/ title="Cloudfront Functions">post</a> I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.</p>
+<p>In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.</p>
+<h2 id=replacing-lambdaedge-with-cloudfront-functions-using-terraform>Replacing Lambda@Edge with Cloudfront Functions using Terraform</h2>
+<p>Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward.
+You simply have to create a equivalent Cloudfront function. Luckily AWS provides bunch of examples of <a href=https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-example-code.html>commonly used functions</a></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=color:#75715e>//function.js
+</span><span style=color:#75715e></span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>handler</span>(<span style=color:#a6e22e>event</span>) {
+    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>response</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>response</span>;
+    <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>headers</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>headers</span>;
+
+    <span style=color:#75715e>// Set HTTP security headers
+</span><span style=color:#75715e></span>    <span style=color:#75715e>// Since JavaScript doesn&#39;t allow for hyphens in variable names, we use the dict[&#34;key&#34;] notation
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;strict-transport-security&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;max-age=63072000; includeSubdomains; preload&#39;</span>};
+    <span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;content-security-policy&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;default-src &#39;none&#39;; img-src &#39;self&#39;; script-src &#39;self&#39;; style-src &#39;self&#39;; object-src &#39;none&#39;&#34;</span>};
+    <span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-content-type-options&#39;</span>] <span style=color:#f92672>=</span> { <span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;nosniff&#39;</span>};
+    <span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-frame-options&#39;</span>] <span style=color:#f92672>=</span> {<span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;DENY&#39;</span>};
+    <span style=color:#a6e22e>headers</span>[<span style=color:#e6db74>&#39;x-xss-protection&#39;</span>] <span style=color:#f92672>=</span> {<span style=color:#a6e22e>value</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#39;1; mode=block&#39;</span>};
+
+    <span style=color:#75715e>// Return the response to viewers
+</span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>response</span>;
+}
+</code></pre></div><p>This javascript code modifies cloudfront responses and adds security headers.</p>
+<p>Next, simply add Cloudfront Function Terraform resource:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Terraform data-lang=Terraform><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_function&#34;</span> <span style=color:#e6db74>&#34;response&#34;</span> {
+  <span style=color:#a6e22e>name</span>    = <span style=color:#e6db74>&#34;cf-response-security-headers&#34;</span>
+  <span style=color:#a6e22e>runtime</span> = <span style=color:#e6db74>&#34;cloudfront-js-1.0&#34;</span>
+  <span style=color:#a6e22e>comment</span> = <span style=color:#e6db74>&#34;Function that adds Cloudfront Security Headers&#34;</span>
+  <span style=color:#a6e22e>publish</span> = <span style=color:#66d9ef>true</span>
+  <span style=color:#a6e22e>code</span>    = file(<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>path</span>.module<span style=color:#e6db74>}</span><span style=color:#e6db74>/function.js&#34;</span>)
+}
+</code></pre></div><p>Finally, modify the Cloudfront distribution, comment out <code>lambda_function_association</code> and add <code>function_association</code> block:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Terraform data-lang=Terraform><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_distribution&#34;</span> <span style=color:#e6db74>&#34;example&#34;</span> {<span style=color:#75715e>
+</span><span style=color:#75715e>  # ... other configuration ...
+</span><span style=color:#75715e>
+</span><span style=color:#75715e>
+</span><span style=color:#75715e>    # Comment out or delete lambda function association
+</span><span style=color:#75715e>    # lambda_function_association {
+</span><span style=color:#75715e>        #   event_type   = &#34;origin-response&#34;
+</span><span style=color:#75715e>        #   include_body = false
+</span><span style=color:#75715e>        #   lambda_arn   = aws_lambda_function.this.qualified_arn
+</span><span style=color:#75715e>        # }
+</span><span style=color:#75715e></span>
+
+    <span style=color:#a6e22e>function_association</span> {
+      <span style=color:#a6e22e>event_type</span>   = <span style=color:#e6db74>&#34;viewer-response&#34;</span>
+      <span style=color:#a6e22e>function_arn</span> = <span style=color:#a6e22e>aws_cloudfront_function</span>.<span style=color:#a6e22e>response</span>.<span style=color:#a6e22e>arn</span>
+    }
+  }
+}
+</code></pre></div><p>I think is good idea not to remove the Lambda Function resource straight away as you might need it, in case something goes wrong with Cloudfront Function.</p>
+<p>After running terraform plan you can see that Cloudfront Function will be added and associated with Cloudfront Distribution and Lambda Function association will be removed:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Terraform data-lang=Terraform>  <span style=color:#f92672>+</span> <span style=color:#a6e22e>function_association</span> {
+              <span style=color:#f92672>+</span> <span style=color:#a6e22e>event_type</span>   = <span style=color:#e6db74>&#34;viewer-response&#34;</span>
+              <span style=color:#f92672>+</span> <span style=color:#a6e22e>function_arn</span> = (<span style=color:#a6e22e>known</span> <span style=color:#a6e22e>after</span> <span style=color:#a6e22e>apply</span>)
+            }
+
+    <span style=color:#f92672>-</span> <span style=color:#a6e22e>lambda_function_association</span> {
+                <span style=color:#f92672>-</span> <span style=color:#a6e22e>event_type</span>   = <span style=color:#e6db74>&#34;origin-response&#34;</span> <span style=color:#f92672>-&gt;</span> <span style=color:#a6e22e>null</span>
+                <span style=color:#f92672>-</span> <span style=color:#a6e22e>include_body</span> = <span style=color:#66d9ef>false</span> <span style=color:#f92672>-&gt;</span> <span style=color:#a6e22e>null</span>
+                <span style=color:#f92672>-</span> <span style=color:#a6e22e>lambda_arn</span>   = <span style=color:#e6db74>&#34;arn:aws:lambda&#34;</span> <span style=color:#f92672>-&gt;</span> <span style=color:#a6e22e>null</span>
+
+
+    <span style=color:#f92672>+</span> <span style=color:#a6e22e>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_function&#34;</span> <span style=color:#e6db74>&#34;response&#34;</span> {
+</code></pre></div><p>Next, simply run terraform apply and your cloudfront distribution will start to use cloudfront function to modify the response headers.</p>
+<h2 id=gotchas-when-working-with-terraform-and-cloudfront-functions>Gotchas when working with Terraform and Cloudfront functions</h2>
+<p>Since, Terraform associates Cloudfront function with a Cloudfront distribution you won&rsquo;t be able to do any actions that force Terraform to delete and recreate a function e.g.: Change the function&rsquo;s name. In order to fix that, you can add Terraform lifecycle policy to create a new function and associate it with Cloudfront before destroying old one.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Terraform data-lang=Terraform><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudfront_function&#34;</span> <span style=color:#e6db74>&#34;response&#34;</span> {<span style=color:#75715e>
+</span><span style=color:#75715e>    ###
+</span><span style=color:#75715e></span>    <span style=color:#a6e22e>lifecycle</span> {
+        <span style=color:#a6e22e>create_before_destroy</span> = <span style=color:#66d9ef>true</span>
+    }
+}
+</code></pre></div><h2 id=conlusion>Conlusion</h2>
+<p>That&rsquo;s it for this short blog post. As you can hopefully see replacing Lambda@Edge with Cloudfront Functions is quite straightforward. If there&rsquo;s anything else I&rsquo;d notice while working with CF Functions I will update this post.</p>
+<ul class=pa0>
+</ul>
+<div class="mt6 instapaper_ignoref">
+<div id=disqus_thread></div>
+<script type=application/javascript>var disqus_config=function(){};(function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById('disqus_thread').innerHTML='Disqus comments not available by default when the website is previewed locally.';return}var b=document,a=b.createElement('script');a.async=!0,a.src='//laur1s.disqus.com/embed.js',a.setAttribute('data-timestamp',+new Date),(b.head||b.body).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+<aside class="w-30-l mt6-l">
+</aside>
+</article>
+</main>
+<footer class="bg-black bottom-0 w-100 pa3" role=contentinfo>
+<div class="flex justify-between">
+<a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href=https://laur1s.github.io/>
+&copy; DevOps For Humans 2021
+</a>
+<div>
+</div>
+</div>
+</footer>
+<script src=/dist/js/app.3fc0f988d21662902933.js></script>
+</body>
+</html>
