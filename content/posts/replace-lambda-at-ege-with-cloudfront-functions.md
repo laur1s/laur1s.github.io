@@ -106,3 +106,16 @@ resource "aws_cloudfront_function" "response" {
 ## Conlusion
 
 That's it for this short blog post. As you can hopefully see replacing Lambda@Edge with Cloudfront Functions is quite straightforward. If there's anything else I'd notice while working with CF Functions I will update this post.
+
+## Update
+
+After using Cloudfront functions for a while I realized that there's an important limitation to it that's is not obvious without digging into AWS documentation:
+>CloudFront does not invoke edge functions for viewer response events when the origin returns HTTP status code 400 or higher.
+
+That makes CF Functions not suitable for adding headers to  any Frontend code that uses Angular, react, Vue, or any similar framework.
+
+For example, if a React application is deployed on S3 Cloudfront first tries to look for an object in S3 instead of using React router. E.g.: for url `example.com/login/` it tries to look for `login` file in the s3 bucket. When the file is not found Cloudfront receives error (usually 403) and then you have to setup a redirection in Cloudfront to redirect all 403 errors to `index.html`  After setting up this redirection, React router works fine but since S3 origin still returns 403 error code no headers could be set on the file.
+Therefore, if you host any application that uses Javascript based routing you can unfortunately limited to Lmabda@Edge.
+
+
+You can read about all Cloudfront function restrictions [here](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html#edge-function-restrictions-all). It's important to learn about these limitations because they can limit you to use Cloudfront Functions.
