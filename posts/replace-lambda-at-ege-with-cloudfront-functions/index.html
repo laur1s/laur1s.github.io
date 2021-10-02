@@ -23,7 +23,7 @@ Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda
 In this post I will show how to migrate Cloudfront distribution that uses Lambda@Edge to set custom security headers to Cloudfront Functions using Terraform. I&rsquo;ve discussed differences of these two AWS functions previously so I&rsquo;m not going go into that and I&rsquo;ll jump straight to the code.
 Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda@Edge with Cloudfront Functions using Terraform is quite straightforward."><meta itemprop=datePublished content="2021-09-09T16:53:11+03:00">
 <meta itemprop=dateModified content="2021-09-09T16:53:11+03:00">
-<meta itemprop=wordCount content="500">
+<meta itemprop=wordCount content="704">
 <meta itemprop=keywords content><meta name=twitter:card content="summary">
 <meta name=twitter:title content="Replace Lambda@Edge With Cloudfront Functions">
 <meta name=twitter:description content="In my previous post I discussed about newly released Cloudfront functionality - Cloudfront Functions and Compared them to Lambda@Edge.
@@ -154,6 +154,15 @@ You simply have to create a equivalent Cloudfront function. Luckily AWS provides
 }
 </code></pre></div><h2 id=conlusion>Conlusion</h2>
 <p>That&rsquo;s it for this short blog post. As you can hopefully see replacing Lambda@Edge with Cloudfront Functions is quite straightforward. If there&rsquo;s anything else I&rsquo;d notice while working with CF Functions I will update this post.</p>
+<h2 id=update>Update</h2>
+<p>After using Cloudfront functions for a while I realized that there&rsquo;s an important limitation to it that&rsquo;s is not obvious without digging into AWS documentation:</p>
+<blockquote>
+<p>CloudFront does not invoke edge functions for viewer response events when the origin returns HTTP status code 400 or higher.</p>
+</blockquote>
+<p>That makes CF Functions not suitable for adding headers to any Frontend code that uses Angular, react, Vue, or any similar framework.</p>
+<p>For example, if a React application is deployed on S3 Cloudfront first tries to look for an object in S3 instead of using React router. E.g.: for url <code>example.com/login/</code> it tries to look for <code>login</code> file in the s3 bucket. When the file is not found Cloudfront receives error (usually 403) and then you have to setup a redirection in Cloudfront to redirect all 403 errors to <code>index.html</code> After setting up this redirection, React router works fine but since S3 origin still returns 403 error code no headers could be set on the file.
+Therefore, if you host any application that uses Javascript based routing you can unfortunately limited to Lmabda@Edge.</p>
+<p>You can read about all Cloudfront function restrictions <a href=https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/edge-functions-restrictions.html#edge-function-restrictions-all>here</a>. It&rsquo;s important to learn about these limitations because they can limit you to use Cloudfront Functions.</p>
 <ul class=pa0>
 </ul>
 <div class="mt6 instapaper_ignoref">
