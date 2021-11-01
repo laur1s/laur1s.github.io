@@ -45,15 +45,16 @@ We ca click on `actions -> promote` to achieve it. However, the warning is displ
 {{< figure src="/images/rds/7.jpg" title="Observing replica lag for a reader instance" >}}
 
 The Replica lag is zero so we can continue to promote the replica instance.
-After the modification is complete we can see that AWS didn’t change the previous primary node to be read replica. Instead promoting read replica actually completely disables  replication between these two instances and they are now two independent databases:
+
+After the modification is complete we can see that AWS didn’t demote the previous primary node to a read replica. Instead it completely disabled the replication between these two instances and they are now two independent databases:
 
 {{< figure src="/images/rds/8.jpg" title="RDS console after promoting the read replica" >}}
-It’s important to note that it’s not possible to demote the instance back to read replica. If I wanted another read replica I’d have to select one of the two databases that I have and create a new read replica.
+Therefore, If I wanted another read replica I’d have to select either `replica` or `wordpress` database to be a new primary and create a new read replica.
 
 ## Conclusion
 
 We can see that bot  Multi-AZ and Read replica  can be used to ensure resilience for RDS.
-Because Multi-AZ provides automatic failover and synchronous replication it’s best to use Multi-AZ to ensure availability of your database and Read replicas to offset reads from a primary database as well as have a disaster recovery setup. Everything is also summarized in the table bellow:
+Because Multi-AZ provides automatic failover and synchronous replication it’s best to use Multi-AZ to ensure availability of your database. Read replicas can be used to offset reads from a primary database as well as a disaster recovery setup. Everything is also summarized in the table bellow:
 
 |    | Multi-AZ | Read-replica    |
 | ----------- | ----------- | ------------- |
