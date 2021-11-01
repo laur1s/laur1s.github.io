@@ -64,6 +64,4 @@ Because Multi-AZ provides automatic failover and synchronous replication it’s 
 | Provides automatic failover  | Yes       | No   |
 | Can improve database performance by providing endpoint for database reads  | No       | Yes   |
 
-
-
 If you have any questions or feedback feel free to leave a comment or contact me.
