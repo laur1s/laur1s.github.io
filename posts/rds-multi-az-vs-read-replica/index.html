@@ -20,7 +20,7 @@ Looking into AWS RDS console, it looks like a very simple service: you can choos
 <meta itemprop=description content="Hi, in this post I&rsquo;m going to go back to a fundamental AWS service - RDS. Specifically, I&rsquo;ll focus on two ways to ensure resilience of your RDS database: RDS Multi AZ and RDS Read replica.
 Looking into AWS RDS console, it looks like a very simple service: you can choose which database engine you want to use, pick some additional parameters, and launch the database. However behind the single interface lies a complexity: each database engine type has slightly different concepts and functionality that you have to be aware of."><meta itemprop=datePublished content="2021-11-01T14:53:45+02:00">
 <meta itemprop=dateModified content="2021-11-01T14:53:45+02:00">
-<meta itemprop=wordCount content="839">
+<meta itemprop=wordCount content="825">
 <meta itemprop=keywords content><meta name=twitter:card content="summary">
 <meta name=twitter:title content="RDS Multi AZ vs Read Replica">
 <meta name=twitter:description content="Hi, in this post I&rsquo;m going to go back to a fundamental AWS service - RDS. Specifically, I&rsquo;ll focus on two ways to ensure resilience of your RDS database: RDS Multi AZ and RDS Read replica.
@@ -126,16 +126,16 @@ Therefore, Multi-AZ Deployment can help by increasing availability of your datab
 <h4>Observing replica lag for a reader instance</h4>
 </figcaption>
 </figure>
-<p>The Replica lag is zero so we can continue to promote the replica instance.
-After the modification is complete we can see that AWS didn’t change the previous primary node to be read replica. Instead promoting read replica actually completely disables replication between these two instances and they are now two independent databases:</p>
+<p>The Replica lag is zero so we can continue to promote the replica instance.</p>
+<p>After the modification is complete we can see that AWS didn’t demote the previous primary node to a read replica. Instead it completely disabled the replication between these two instances and they are now two independent databases:</p>
 <p><figure><img src=/images/rds/8.jpg><figcaption>
 <h4>RDS console after promoting the read replica</h4>
 </figcaption>
 </figure>
-It’s important to note that it’s not possible to demote the instance back to read replica. If I wanted another read replica I’d have to select one of the two databases that I have and create a new read replica.</p>
+Therefore, If I wanted another read replica I’d have to select either <code>replica</code> or <code>wordpress</code> database to be a new primary and create a new read replica.</p>
 <h2 id=conclusion>Conclusion</h2>
 <p>We can see that bot Multi-AZ and Read replica can be used to ensure resilience for RDS.
-Because Multi-AZ provides automatic failover and synchronous replication it’s best to use Multi-AZ to ensure availability of your database and Read replicas to offset reads from a primary database as well as have a disaster recovery setup. Everything is also summarized in the table bellow:</p>
+Because Multi-AZ provides automatic failover and synchronous replication it’s best to use Multi-AZ to ensure availability of your database. Read replicas can be used to offset reads from a primary database as well as a disaster recovery setup. Everything is also summarized in the table bellow:</p>
 <table>
 <thead>
 <tr>
