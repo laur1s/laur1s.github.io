@@ -1,13 +1,17 @@
 baseURL = "https://laur1s.github.io/"
 languageCode = "en-us"
-title = "DevOps For Humans"
-theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
+title = "AWS For Humans"
+theme = "ananke"
+Paginate = 5
 disqusShortname = "laur1s"
 [params]
-  title = "DevOps For Humans"
+  twitter = "https://twitter.com/LaurynasT2"
+  title = "AWS For Humans"
   author = "Laurynas Tumosa"
-  description = "Notes about Devops, Cloud, AWS, Terraform and other things from my work as a Devops engineer."
-  profilePicture = "images/profile.jpg"
+  description = "Blog about AWS and DevOps"
+  background_color_class = "bg-black"
+  featured_image = "/images/aws.webp"
+  profilePicture = "/images/profile.jpg"
   summarylength = 4000
 
 [menu]
