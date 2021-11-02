@@ -79,6 +79,25 @@ Recent Posts
 <div class="flex flex-column flex-row-ns">
 <div class="blah w-100">
 <h1 class="f3 fw1 athelas mt0 lh-title">
+<a href=/posts/limit-access-to-aws-regions-with-iam/ class="color-inherit dim link">
+Limit Access to AWS Regions With IAM and SCP
+</a>
+</h1>
+<div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+By default AWS gives you access to all AWS regions. However, it&rsquo;s a very rare case that you might need to launch resources across all AWS regions in one account. In fact, I think is usually best to have one account per AWS region when possible. As some of the services are global (like IAM roles) by using one account per AWS region you can be sure that naming of IAM roles doesn&rsquo;t clash and you won&rsquo;t accidentally use IAM role written for us-west-1 for your application in us-east-1 for example.
+</div>
+<a href=/posts/limit-access-to-aws-regions-with-iam/ class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
+</div>
+</div>
+</div>
+</article>
+</div>
+<div class="relative w-100 mb4">
+<article class="bb b--black-10">
+<div class="db pv4 ph3 ph0-l no-underline dark-gray">
+<div class="flex flex-column flex-row-ns">
+<div class="blah w-100">
+<h1 class="f3 fw1 athelas mt0 lh-title">
 <a href=/posts/rds-multi-az-vs-read-replica/ class="color-inherit dim link">
 RDS Multi AZ vs Read Replica
 </a>
@@ -114,28 +133,14 @@ Replacing Lambda@Edge with Cloudfront Functions using Terraform Replacing Lambda
 </div>
 </article>
 </div>
-<div class="relative w-100 mb4">
-<article class="bb b--black-10">
-<div class="db pv4 ph3 ph0-l no-underline dark-gray">
-<div class="flex flex-column flex-row-ns">
-<div class="blah w-100">
-<h1 class="f3 fw1 athelas mt0 lh-title">
-<a href=/posts/terraform-0.12-upgrade/ class="color-inherit dim link">
-Upgrading Terraform from 0.12 to 0.15
-</a>
-</h1>
-<div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
-If you follow Terraform best practices your Terraform infrastructure code should consist of multiple small modules that contain certain infrastructure code (in this case AWS). However, the problem with smaller modules is that probably most of the infrastructure doesn&rsquo;t change that often. E.g.: once you create a VPC you don&rsquo;t need to update it very often unless there are some changes with networking. On the other hand, other Terraform modules you use like ECS clusters, or ASG groups might require to be updated more often.
-</div>
-<a href=/posts/terraform-0.12-upgrade/ class="ba b--moon-gray bg-light-gray br2 color-inherit dib f7 hover-bg-moon-gray link mt2 ph2 pv1">read more</a>
-</div>
-</div>
-</div>
-</article>
-</div>
 </section>
 <section class=w-100>
 <h1 class=f3>More</h1>
+<h2 class="f5 fw4 mb4 dib mr3">
+<a href=/posts/terraform-0.12-upgrade/ class="link black dim">
+Upgrading Terraform from 0.12 to 0.15
+</a>
+</h2>
 <h2 class="f5 fw4 mb4 dib mr3">
 <a href=/posts/cloudfront-functions/ class="link black dim">
 Modifying AWS Cloudfront response headers with Cloudfront functions

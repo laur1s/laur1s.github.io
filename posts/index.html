@@ -68,6 +68,20 @@ Posts
 <div class="bg-white mb3 pa4 gray overflow-hidden">
 <span class="f6 db">Posts</span>
 <h1 class="f3 near-black">
+<a href=/posts/limit-access-to-aws-regions-with-iam/ class="link black dim">
+Limit Access to AWS Regions With IAM and SCP
+</a>
+</h1>
+<div class="nested-links f5 lh-copy nested-copy-line-height">
+By default AWS gives you access to all AWS regions. However, it&rsquo;s a very rare case that you might need to launch resources across all AWS regions in one account. In fact, I think is usually best to have one account per AWS region when possible. As some of the services are global (like IAM roles) by using one account per AWS region you can be sure that naming of IAM roles doesn&rsquo;t clash and you won&rsquo;t accidentally use IAM role written for us-west-1 for your application in us-east-1 for example.
+</div>
+</div>
+</div>
+</div>
+<div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+<div class="bg-white mb3 pa4 gray overflow-hidden">
+<span class="f6 db">Posts</span>
+<h1 class="f3 near-black">
 <a href=/posts/rds-multi-az-vs-read-replica/ class="link black dim">
 RDS Multi AZ vs Read Replica
 </a>
@@ -120,22 +134,6 @@ Modifying AWS Cloudfront response headers with Cloudfront functions
 <div class="nested-links f5 lh-copy nested-copy-line-height">
 Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a Content-Security-Policy header.
 Doing this task in Cloudfront was not easy. You needed to setup a Lambda@Edge function that intercepts response requests and adds the required headers. It's not that difficult to setup Lambda@Edge but using Lambda functions to add a simple HTTP header to a response feels like a bit of overkill. I even wrote about this when the Cloudfront team asked for suggestions: https://t.
-</div>
-</div>
-</div>
-</div>
-<div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-<div class="bg-white mb3 pa4 gray overflow-hidden">
-<span class="f6 db">Posts</span>
-<h1 class="f3 near-black">
-<a href=/posts/introduction-to-dockerignore/ class="link black dim">
-Introduction to .dockerignore
-</a>
-</h1>
-<div class="nested-links f5 lh-copy nested-copy-line-height">
-.dockerignore is a special file where you can specify files and folders that will be excluded from the docker context. What it means is that these files won't be added to your container image after using ADD or COPY commands. For more information about the .dockerignore please refer to the docker documentation.
-For example for Node.js application my .dockerignore file might look something like this:
-# .dockerignore# ignore git.git/.gitignore# ignore teststest/# local node modules and debug lognode_modules/npm-debug.
 </div>
 </div>
 </div>
