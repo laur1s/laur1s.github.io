@@ -1,8 +1,7 @@
 ---
 title: "AWS for Humans"
-description: "Blog about AWS and Devops. Accessible for everyone!"
+description: "Blog about AWS and Devops. Accessible for everyone."
 ---
 
-<!-- In this blog I'll try to explain my thoughts and learnings about AWS and
-DevOps in a language that should be accessible for everyone!
--->
+Blog where I try to explain my thoughts and learnings about AWS and
+DevOps in a human friendly way!
