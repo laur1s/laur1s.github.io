@@ -14,6 +14,7 @@ disqusShortname = "laur1s"
   profilePicture = "/images/profile.jpg"
   summarylength = 4000
   show_reading_time = true
+  favicon = "/images/favicon.ico"
 
 [menu]
 
