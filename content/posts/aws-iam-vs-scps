@@ -1,0 +1,7 @@
+---
+title: "Aws Iam vs Scps"
+date: 2021-11-02T16:36:05+02:00
+draft: true
+---
+
+ In theory SCP looks better: with one policy you can restrict actions to all the members accounts in the organization.  However, what I really don't like about SCPs is that SCPs makes  it impossible to understand the permissions when looking from a member account perspective. Example, say I have an IAM policy in my account that allows Administrator access to AWS. Next, I add this role to my application to use. I expect everything to work because the application should have administrator access to my AWS account. However, looking into logs I can see that my application can't write to s3 even though it has administrator access. As a developer I don't have access to AWS organization root account and can't see that my s3 write is failing because my AWS account has a SCP that doesn't allow writing to s3. Also, using SCPs can make developers
