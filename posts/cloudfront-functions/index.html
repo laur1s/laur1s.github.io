@@ -83,6 +83,8 @@ Laurynas Tumosa
 </strong>
 </p>
 <time class="f6 mv4 dib tracked" datetime=2021-05-23T21:51:56+03:00>May 23, 2021</time>
+<span class="f6 mv4 dib tracked"> - 5 minutes read </span>
+<span class="f6 mv4 dib tracked"> - 877 words </span>
 </header>
 <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a <a href=https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy>Content-Security-Policy header</a>.</p>
 <p>Doing this task in Cloudfront was not easy. You needed to setup a Lambda@Edge function that intercepts response requests and adds the required headers. It's not that difficult to setup Lambda@Edge but using Lambda functions to add a simple HTTP header to a response feels like a bit of overkill. I even wrote about this when the Cloudfront team asked for suggestions:

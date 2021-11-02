@@ -83,6 +83,8 @@ Laurynas Tumosa
 </strong>
 </p>
 <time class="f6 mv4 dib tracked" datetime=2021-11-01T14:53:45+02:00>November 1, 2021</time>
+<span class="f6 mv4 dib tracked"> - 4 minutes read </span>
+<span class="f6 mv4 dib tracked"> - 825 words </span>
 </header>
 <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>Hi, in this post I&rsquo;m going to go back to a fundamental AWS service - RDS. Specifically, I&rsquo;ll focus on two ways to ensure resilience of your RDS database: RDS Multi AZ and RDS Read replica.</p>
 <p>Looking into AWS RDS console, it looks like a very simple service: you can choose which database engine you want to use, pick some additional parameters, and launch the database. However behind the single interface lies a complexity: each database engine type has slightly different concepts and functionality that you have to be aware of. For simplicity sake, this post is going to focus on RDS MySQL.
