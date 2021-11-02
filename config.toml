@@ -13,6 +13,7 @@ disqusShortname = "laur1s"
   featured_image = "/images/aws.webp"
   profilePicture = "/images/profile.jpg"
   summarylength = 4000
+  show_reading_time = true
 
 [menu]
 
