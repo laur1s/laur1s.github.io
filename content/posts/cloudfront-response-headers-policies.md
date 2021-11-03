@@ -72,4 +72,4 @@ It looks like AWS listened to feedback and provided a really simple and intuitiv
 
 I haven't tested the performance of this but it should probably be faster then lambda@edge and maybe even that CF functions.
 
-It was very productive week for me and this is my third blog post this week. If you liked the post please check two other posts: [how to block access to certain aws regions and limit your blast radius]({{< ref "/posts/limit-access-to-aws-regions-with-iam.md" >}})  and another post where I go through the [differences between RDS read replicas and Multi-AZ deployments] ({{< ref "/posts/rds-multi-az-vs-read-replica.md" >}}).
+It was very productive week for me and this is my third blog post this week. If you liked the post please check two other posts: [how to block access to certain aws regions and limit your blast radius]({{< ref "/posts/limit-access-to-aws-regions-with-iam.md" >}})  and another post where I go through the [differences between RDS read replicas and Multi-AZ deployments]({{< ref "/posts/rds-multi-az-vs-read-replica.md" >}}).
