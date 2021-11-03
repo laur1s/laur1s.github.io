@@ -1,5 +1,5 @@
 ---
-title: "Cloudfront Response Headers Policies"
+title: "Cloudfront: Adding HTTP security headers with Response Headers Policies"
 date: 2021-11-03T00:14:03+02:00
 ---
 
