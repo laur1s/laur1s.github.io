@@ -69,6 +69,21 @@ Posts
 <div class="bg-white mb3 pa4 gray overflow-hidden">
 <span class="f6 db">Posts</span>
 <h1 class="f3 near-black">
+<a href=/posts/cloudfront-response-headers-policies/ class="link black dim">
+Cloudfront Response Headers Policies
+</a>
+</h1>
+<div class="nested-links f5 lh-copy nested-copy-line-height">
+Another day, another blog post about adding security headers to Cloudfront HTTP responses. Actually, it&rsquo;s my third post about this topic, which is the same as the number of AWS services that can be used to modify Cloudfront headers. As of today we have: Lambda@Edge, Cloudfront Functions, and the newly introduced Response Headers Policies
+Again, ability to easily add HTTP headers to Cloudfront was very commonly requested feature: https://t.co/BGzCyi8LtU headers without needing to use lambda@edge would be great
+</div>
+</div>
+</div>
+</div>
+<div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
+<div class="bg-white mb3 pa4 gray overflow-hidden">
+<span class="f6 db">Posts</span>
+<h1 class="f3 near-black">
 <a href=/posts/limit-access-to-aws-regions-with-iam/ class="link black dim">
 Limit Access to AWS Regions With IAM and SCP
 </a>
@@ -120,21 +135,6 @@ Upgrading Terraform from 0.12 to 0.15
 </h1>
 <div class="nested-links f5 lh-copy nested-copy-line-height">
 If you follow Terraform best practices your Terraform infrastructure code should consist of multiple small modules that contain certain infrastructure code (in this case AWS). However, the problem with smaller modules is that probably most of the infrastructure doesn&rsquo;t change that often. E.g.: once you create a VPC you don&rsquo;t need to update it very often unless there are some changes with networking. On the other hand, other Terraform modules you use like ECS clusters, or ASG groups might require to be updated more often.
-</div>
-</div>
-</div>
-</div>
-<div class="relative w-100 w-30-l mb4 bg-white"><div class="relative w-100 mb4 bg-white nested-copy-line-height">
-<div class="bg-white mb3 pa4 gray overflow-hidden">
-<span class="f6 db">Posts</span>
-<h1 class="f3 near-black">
-<a href=/posts/cloudfront-functions/ class="link black dim">
-Modifying AWS Cloudfront response headers with Cloudfront functions
-</a>
-</h1>
-<div class="nested-links f5 lh-copy nested-copy-line-height">
-Adding custom HTTP response headers to cloudfront is quite a common task. E.g.: Your website might need a Content-Security-Policy header.
-Doing this task in Cloudfront was not easy. You needed to setup a Lambda@Edge function that intercepts response requests and adds the required headers. It's not that difficult to setup Lambda@Edge but using Lambda functions to add a simple HTTP header to a response feels like a bit of overkill. I even wrote about this when the Cloudfront team asked for suggestions: https://t.
 </div>
 </div>
 </div>
