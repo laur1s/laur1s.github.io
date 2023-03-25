@@ -1,7 +1,7 @@
 baseURL = "https://awsforhumans.xyz"
 languageCode = "en-us"
 title = "AWS For Humans"
-theme = "ananke"
+theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
 Paginate = 5
 disqusShortname = "laur1s"
 [params]
